@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Album>
+
+<h2>Album Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Albums at this point :()</td></tr>
+}
+else
+{
+    <p>
+        <a class="btn btn-primary" asp-action="AddAlbum">Add new Album</a>
+        <a class="btn btn-primary" asp-action="QuickEdit">Edit Album names</a>
+        <a class="btn btn-primary" asp-action="BulkEditAlbums">Edit Albums in bulk</a>
+    </p>
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Album ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>In stock</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var Album in Model)
+        {
+            <tr>
+                <td>@Album.AlbumId</td>
+                <td><img src="@Album.ImageThumbnailUrl" /></td>
+                <td>@Album.Name</td>
+                <td><input type="checkbox" asp-for="@Album.InStock" />
+                <td>@Album.Price</td>
+                <td>
+                    <form asp-action="DeleteAlbum" asp-route-AlbumId="@Album.AlbumId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditAlbum" asp-route-AlbumId="@Album.AlbumId">Edit</a>
+                        <button type="submit" onclick="return confirm('Do you really want to delete this Album?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<p>
+    <a class="btn btn-primary" asp-action="AddAlbum">Add new Album</a>
+    <a class="btn btn-primary" asp-action="QuickEdit">Edit Album names</a>
+    <a class="btn btn-primary" asp-action="BulkEditAlbums">Edit Albums in bulk</a>
+</p>

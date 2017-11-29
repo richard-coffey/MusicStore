@@ -1,0 +1,50 @@
+﻿@using System.Net
+@using System.Threading.Tasks
+@model AlbumDetailViewModel
+
+<div class="thumbnail">
+    <img alt="@Model.Album.Name" src="@Model.Album.ImageUrl">
+    <div class="caption-full">
+        <h3 class="pull-right">€@Model.Album.Price</h3>
+        <h3>
+            <a href="#">@Model.Album.Name</a>
+        </h3>
+        <h4>@Model.Album.ShortDescription</h4>
+        <p>@Model.Album.LongDescription</p>
+        <p class="button">
+            <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddToShoppingCart"
+               asp-route-AlbumId="@Model.Album.AlbumId">Add to cart</a>
+        </p>
+    </div>
+</div>
+
+<h3>Reviews for this Album</h3>
+
+@foreach (var review in @Model.Album.AlbumReviews)
+{
+    @*@Html.Raw(@review.Review)*@
+    <div>@WebUtility.HtmlDecode(review.Review) </div>
+    <hr />
+}
+
+<form asp-controller="Album" asp-action="Details" method="post" class="form-horizontal" role="form">
+    <h4>Write a review</h4>
+    <hr />
+    <input type="hidden" asp-for="@Model.Album.AlbumId" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Review" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Review" class="form-control" value="@Model.Review"/>
+            <span asp-validation-for="Review" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Send review" />
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,56 @@
+﻿@using System.Security.Claims
+@model UserInfoViewModel
+
+<form class="form-horizontal">
+
+    <h2>Information</h2>
+    <div class="form-group">
+        <label for="userId" class="col-sm-2 control-label">Id:</label>
+        <div class="col-sm-8">
+            <input id="userId" class="form-control" type="text" value="@Model.ApplicationUser.Id" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userName" class="col-sm-2 control-label">UserName:</label>
+        <div class="col-sm-8">
+            <input id="userName" class="form-control" type="text" value="@Model.ApplicationUser.UserName" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email:</label>
+        <div class="col-sm-8">
+            <input id="email" class="form-control" type="text" value="@Model.ApplicationUser.Email" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="birthday" class="col-sm-2 control-label">Birthday:</label>
+        <div class="col-sm-8">
+            <input id="birthday" class="form-control" type="text" value="@Model.ApplicationUser.Birthdate" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="city" class="col-sm-2 control-label">City:</label>
+        <div class="col-sm-8">
+            <input id="city" class="form-control" type="text" value="@Model.ApplicationUser.City" readonly />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="country" class="col-sm-2 control-label">Country:</label>
+        <div class="col-sm-8">
+            <input id="country" class="form-control" type="text" value="@Model.ApplicationUser.Country" readonly />
+        </div>
+    </div>
+</form>
+
+<h2>Claims</h2>
+
+
+@foreach (var claim in Model.Claims)
+{
+    <div>
+        <div>@claim.Type</div>
+        <div>@claim.Value</div>
+        <br />
+    </div>
+}
+

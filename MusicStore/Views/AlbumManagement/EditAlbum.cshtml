@@ -1,0 +1,97 @@
+﻿@model AlbumEditViewModel
+
+<h2>Edit Album</h2>
+
+<form asp-controller="AlbumManagement" asp-action="EditAlbum" method="post" class="form-horizontal" role="form">
+    <h4>Update the Album details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Album.AlbumId" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.AlbumId" class="form-control" />@*readonly="readonly"*@
+            <span asp-validation-for="Album.AlbumId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.Name" class="form-control" />
+            <span asp-validation-for="Album.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.ShortDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.ShortDescription" class="form-control" />
+            <span asp-validation-for="Album.ShortDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.LongDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.LongDescription" class="form-control" />
+            <span asp-validation-for="Album.LongDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.Price" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.Price" class="form-control" />
+            <span asp-validation-for="Album.Price" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.ImageThumbnailUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.ImageThumbnailUrl" class="form-control" />
+            <span asp-validation-for="Album.ImageThumbnailUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.ImageUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.ImageUrl" class="form-control" />
+            <span asp-validation-for="Album.ImageUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.InStock" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.InStock" class="form-control" />
+            <span asp-validation-for="Album.InStock" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.IsAlbumOfTheWeek" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Album.IsAlbumOfTheWeek" class="form-control" />
+            <span asp-validation-for="Album.IsAlbumOfTheWeek" class="text-danger"></span>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label asp-for="Categories" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="CategoryId" class="form-control"
+                    asp-items="Model.Categories"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Update Album" />
+        </div>
+    </div>
+</form>

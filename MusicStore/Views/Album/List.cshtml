@@ -1,0 +1,99 @@
+﻿@model AlbumsListViewModel
+
+@*<h1>@Model.CurrentCategory</h1>
+
+    @foreach (var Album in Model.Albums)
+    {
+        @Html.Partial("AlbumOverviewSummary", Album)
+    }*@
+
+
+<h1>@Model.CurrentCategory Albums</h1>
+
+<div id="AlbumDiv">
+</div>
+
+
+
+@section scripts
+    {
+    <script>
+
+        $(document).ready(function () {
+           LoadMoreAlbumsNext("@Model.CurrentCategory");
+        });
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + 1 >= $(document).height() - $(window).height()) {
+                LoadMoreAlbumsNext("@Model.CurrentCategory");
+            }
+
+        });
+
+        // closure function for paging loadmoreAlbums
+        var LoadMoreAlbumsNext = (function() {
+            var counter = 0;
+            return function (category) {
+                LoadMoreAlbums(category, counter);
+                return counter += 1;
+            }
+        })();
+
+
+        function LoadMoreAlbums(category, pageCounter) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/Albumdata/' + category  + '/' + pageCounter,
+                dataType: 'json',
+                success: function(jsonData) {
+                    if (jsonData == null) {
+                        alert('no data returned');
+                        return;
+                    }
+
+                    $.each(jsonData,
+                        function(index, Album) {
+
+                            var AlbumSummarString = '<div class="col-sm-4 col-lg-4 col-md-4"> ' +
+                                '  <div class="thumbnail">' +
+                                '     <img src="' +
+                                Album.imageThumbnailUrl +
+                                '" alt="">' +
+                                '      <div class="caption">' +
+                                '         <h3 class="pull-right">€' +
+                                Album.price +
+                                '</h3>' +
+                                '         <h3>' +
+                                '             <a href=/Album/Details/' +
+                                Album.albumId +
+                                '>' +
+                                Album.name +
+                                '</a>' +
+                                '         </h3>' +
+                                '         <p><b>' +
+                                Album.shortDescription +
+                                '</b></p>' +
+                                '    </div>' +
+                                '    <div class="addToCart">' +
+                                '        <p class="button">' +
+                                '             <a class="btn btn-primary" href=/ShoppingCart/AddToShoppingCart?AlbumId=' +
+                                Album.albumId +
+                                '>Add to cart</a>' +
+                                '         </p>' +
+                                '     </div>' +
+                                '  </div>' +
+                                '</div>';
+
+                            $('#AlbumDiv').append(AlbumSummarString);
+                        });
+                },
+                error: function(ex) {
+                    alert(ex);
+                }
+            });
+            return false;
+        }
+    </script>
+
+
+}
